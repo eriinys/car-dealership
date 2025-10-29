@@ -10,7 +10,7 @@ public class Dealership {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        ArrayList<Vehicle> inventory = new ArrayList<>();
+        this.inventory = new ArrayList<>();
     }
 //region getters/setters
     public String getName() {
