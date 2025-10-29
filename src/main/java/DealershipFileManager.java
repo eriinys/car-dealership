@@ -4,10 +4,21 @@ import java.util.ArrayList;
 public class DealershipFileManager {
     private Dealership dealership;
 
+    public DealershipFileManager(){
+        this.dealership = dealership;
+    }
+
     public Dealership getDealership(){
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/inventory.csv"))){
 
-            br.readLine(); //reads header
+            String header = br.readLine();
+            if(header != null){
+                String[] dealer = header.split("\\|");
+                String name = dealer[0];
+                String address = dealer[1];
+                String phone = dealer[2];
+                Dealership dealership = new Dealership(name, address, phone);
+            }
 
            String list;
            while((list = br.readLine()) != null) {
