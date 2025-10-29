@@ -40,91 +40,86 @@ public class Dealership {
 
     //region methods
     public void addVehicle(Vehicle vehicle){
-        Vehicle add = new Vehicle(vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
-        inventory.add(add);
-
+        Vehicle newVehicle = new Vehicle(vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
+        inventory.add(newVehicle);
     }
 
     public void removeVehicle(Vehicle vehicle){
-
+        //removal happens in memory before text file
+        inventory.remove(vehicle);
     }
 
-    public ArrayList<Vehicle> getVehiclesByPrice(int min, int max){
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getPrice() > min && vehicle.getPrice() < max) {
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return filtered;
-        return null;
+    public ArrayList<Vehicle> getVehiclesByPrice(double min, double max){
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getPrice() > min && vehicle.getPrice() < max) {
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return filtered;
     }
 
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model){
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getMake().equalsIgnoreCase(make) || vehicle.getModel().equalsIgnoreCase(model)){
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return filtered;
-        return null;
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getMake().equalsIgnoreCase(make) || vehicle.getModel().equalsIgnoreCase(model)){
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return filtered;
+
     }
 
     public ArrayList<Vehicle> getVehiclesByYear(int min, int max){
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getYear() > min && vehicle.getYear() < max){
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return  filtered;
-        return null;
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getYear() >= min && vehicle.getYear() <= max){
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return  filtered;
     }
 
     public ArrayList<Vehicle> getVehiclesByColor(String color) {
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getColor().equalsIgnoreCase(color)){
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return filtered;
-        return null;
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getColor().equalsIgnoreCase(color)){
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return filtered;
     }
 
     public ArrayList<Vehicle> getVehiclesByMileage(int min, int max){
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getOdometer() > min && vehicle.getOdometer() < max){
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return filtered;
-        return null;
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getOdometer() > min && vehicle.getOdometer() < max){
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return filtered;
     }
 
     public ArrayList<Vehicle> getVehiclesByTpe(String type){
-//        ArrayList<Vehicle> filtered = new ArrayList<>();
-//        for (Vehicle vehicle : inventory){
-//            if (vehicle.getVehicleType().equalsIgnoreCase(type)){
-//                filtered.add(vehicle);
-//            } else {
-//                System.out.println("Match not found.");
-//            }
-//        }
-//        return filtered;
-        return null;
+        ArrayList<Vehicle> filtered = new ArrayList<>();
+        for (Vehicle vehicle : inventory){
+            if (vehicle.getVehicleType().equalsIgnoreCase(type)){
+                filtered.add(vehicle);
+            } else {
+                System.out.println("Match not found.");
+            }
+        }
+        return filtered;
     }
 
     public ArrayList<Vehicle> getAllVehicles(){
