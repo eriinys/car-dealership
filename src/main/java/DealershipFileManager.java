@@ -17,7 +17,7 @@ public class DealershipFileManager {
                 String name = dealer[0];
                 String address = dealer[1];
                 String phone = dealer[2];
-                Dealership dealership = new Dealership(name, address, phone);
+                dealership = new Dealership(name, address, phone);
             }
 
            String list;
