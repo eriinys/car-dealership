@@ -9,8 +9,7 @@ public class UserInterface {
         boolean main = true;
         while(main) {
             System.out.println("""
-                \nWelcome to Car Dealership!
-                Choose from following options:
+                \nChoose from following options:
                 A) Add Vehicle
                 B) Remove Vehicle
                 C) List All Vehicle
@@ -138,9 +137,9 @@ public class UserInterface {
         double price = Double.parseDouble(scanner.nextLine());
 
         Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
-        dealership.addVehicle(vehicle);
+        dealership.addVehicle(vehicle); //adds to arraylist
         DealershipFileManager fileManager = new DealershipFileManager();
-        fileManager.saveDealership(dealership);
+        fileManager.saveDealership(dealership); //overwrites text file with updated arraylist
 
         System.out.println("Vehicle successfully added to inventory. " +
                 "Thank you!\n");
@@ -154,9 +153,9 @@ public class UserInterface {
         boolean found = false;
         for (int i = 0; i < vehicles.size(); i++){
             if (vehicles.get(i).getVin() == vin) {
-                dealership.removeVehicle(vehicles.get(i));
+                dealership.removeVehicle(vehicles.get(i)); //removes from arraylist
                 DealershipFileManager fileManager = new DealershipFileManager();
-                fileManager.saveDealership(dealership);
+                fileManager.saveDealership(dealership);//overwrites text file with updated arraylist
                 found = true;
                 System.out.println("Vehicle successfully removed from inventory.\n");
             }
@@ -173,7 +172,7 @@ public class UserInterface {
 
     private void displayVehicles(ArrayList<Vehicle> vehicles){
         if (vehicles == null || vehicles.isEmpty()) {
-            System.out.println("Match not found.\n");
+            System.out.println("Match not found.");
         }
         for (Vehicle vehicle : vehicles){
             System.out.println(vehicle);

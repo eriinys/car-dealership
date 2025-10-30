@@ -14,6 +14,10 @@ public class DealershipFileManager {
                 String address = dealer[1];
                 String phone = dealer[2];
                 dealership = new Dealership(name, address, phone);
+                System.out.printf("""
+                        Welcome to %s!
+                        Address: %s
+                        Phone: %s\n""", dealer[0], dealer[1], dealer[2]);
             }
 
            String list;
