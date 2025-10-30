@@ -6,8 +6,10 @@ public class UserInterface {
 
     public void display(){
         init(); //loads the dealership
-        System.out.println("""
-                Welcome to Car Dealership!
+        boolean main = true;
+        while(main) {
+            System.out.println("""
+                \nWelcome to Car Dealership!
                 Choose from following options:
                 A) Add Vehicle
                 B) Remove Vehicle
@@ -15,22 +17,20 @@ public class UserInterface {
                 D) Search
                 E) Exit
                 """);
-        String choice = scanner.nextLine();
-        boolean main = true;
-        while(main) {
-            switch (choice) {
+            String choice = scanner.nextLine();
+            switch (choice.toUpperCase()) {
                 case "A" -> processAddVehicleRequest();
                 case "B" -> processRemoveVehicleRequest();
                 case "C" -> processGetAllVehicleRequest();
                 case "D" -> {
                     System.out.println("""
                             Please choose from following search option:
-                            1) search by price range
-                            2) search by make/model
-                            3) search by year range
-                            4) search by color
-                            5) search by mileage range
-                            6) search by type
+                            1) Search by price range
+                            2) Search by make/model
+                            3) Search by year range
+                            4) Search by color
+                            5) Search by mileage range
+                            6) Search by type
                             """);
                     String choice2 = scanner.nextLine();
                     boolean search = true;
@@ -139,6 +139,8 @@ public class UserInterface {
 
         Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
         dealership.addVehicle(vehicle);
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
 
         System.out.println("Vehicle successfully added to inventory. " +
                 "Thank you!\n");
@@ -148,13 +150,19 @@ public class UserInterface {
         System.out.println("Enter the vin# of vehicle you would like to remove:");
         int vin = Integer.parseInt(scanner.nextLine());
 
-        for (Vehicle vehicle : dealership.inventory) {
-            if (vehicle.getVin() == vin){
-                dealership.removeVehicle(vehicle);
+        ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
+        boolean found = false;
+        for (int i = 0; i < vehicles.size(); i++){
+            if (vehicles.get(i).getVin() == vin) {
+                dealership.removeVehicle(vehicles.get(i));
+                DealershipFileManager fileManager = new DealershipFileManager();
+                fileManager.saveDealership(dealership);
+                found = true;
                 System.out.println("Vehicle successfully removed from inventory.\n");
-            } else {
-                System.out.println("No vehicle match found to remove from the list.\n");
             }
+        }
+        if (!found){
+            System.out.println("No vehicle match found to remove from the list.\n");
         }
     }
 
@@ -164,7 +172,10 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles){
-        for (Vehicle vehicle : dealership.inventory){
+        if (vehicles == null || vehicles.isEmpty()) {
+            System.out.println("Match not found.\n");
+        }
+        for (Vehicle vehicle : vehicles){
             System.out.println(vehicle);
         }
     }

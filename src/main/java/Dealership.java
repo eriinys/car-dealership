@@ -52,10 +52,8 @@ public class Dealership {
     public ArrayList<Vehicle> getVehiclesByPrice(double min, double max){
         ArrayList<Vehicle> filtered = new ArrayList<>();
         for (Vehicle vehicle : inventory){
-            if (vehicle.getPrice() > min && vehicle.getPrice() < max) {
+            if (vehicle.getPrice() >= min && vehicle.getPrice() <= max) {
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return filtered;
@@ -63,24 +61,20 @@ public class Dealership {
 
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model){
         ArrayList<Vehicle> filtered = new ArrayList<>();
+
         for (Vehicle vehicle : inventory){
             if (vehicle.getMake().equalsIgnoreCase(make) || vehicle.getModel().equalsIgnoreCase(model)){
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return filtered;
-
     }
 
     public ArrayList<Vehicle> getVehiclesByYear(int min, int max){
         ArrayList<Vehicle> filtered = new ArrayList<>();
         for (Vehicle vehicle : inventory){
-            if (vehicle.getYear() >= min && vehicle.getYear() <= max){
+            if (vehicle.getYear() >= min && vehicle.getYear() <= max) {
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return  filtered;
@@ -91,8 +85,6 @@ public class Dealership {
         for (Vehicle vehicle : inventory){
             if (vehicle.getColor().equalsIgnoreCase(color)){
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return filtered;
@@ -103,8 +95,6 @@ public class Dealership {
         for (Vehicle vehicle : inventory){
             if (vehicle.getOdometer() > min && vehicle.getOdometer() < max){
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return filtered;
@@ -115,8 +105,6 @@ public class Dealership {
         for (Vehicle vehicle : inventory){
             if (vehicle.getVehicleType().equalsIgnoreCase(type)){
                 filtered.add(vehicle);
-            } else {
-                System.out.println("Match not found.");
             }
         }
         return filtered;

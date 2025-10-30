@@ -4,10 +4,6 @@ import java.util.ArrayList;
 public class DealershipFileManager {
     private Dealership dealership;
 
-    public DealershipFileManager(){
-        this.dealership = dealership;
-    }
-
     public Dealership getDealership(){
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/inventory.csv"))){
 
