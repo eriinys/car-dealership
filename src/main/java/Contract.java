@@ -53,6 +53,8 @@ public abstract class Contract {
     public abstract double getTotalPrice();
     public abstract double getMonthlyPay();
 
+    public abstract String toFileString();
+
     public String toString(){
         return String.format("%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|", date, customerName, email, vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
 

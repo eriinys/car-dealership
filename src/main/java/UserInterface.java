@@ -58,7 +58,7 @@ public class UserInterface {
                     String choice3 = scanner.nextLine();
                     boolean contract = true;
                     while(contract){
-                        switch (choice3){
+                        switch (choice3.toUpperCase()){
                             case "P" -> processSale();
                             case "L" -> processLease();
                         }
@@ -221,6 +221,7 @@ public class UserInterface {
 
             contract.saveContract(sales);
             System.out.println("Sales contract successfully created!");
+            dealership.removeVehicle(vehicle);
             break;
         }
     }

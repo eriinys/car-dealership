@@ -62,4 +62,15 @@ public class SalesContract extends Contract {
         }
         return monthlyPay;
     }
+
+    @Override
+    public String toFileString() {
+        String yesNo;
+        if (isFinanced() == true){
+            yesNo = "YES";
+        } else {
+            yesNo = "NO";
+        }
+        return String.format("%.2f|%.2f|%.2f|%s|%.2f", getRecordingFee(), getProcessingFee(), getTotalPrice(), yesNo, getMonthlyPay());
+    }
 }

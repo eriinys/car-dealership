@@ -12,6 +12,7 @@ public class Dealership {
         this.phone = phone;
         this.inventory = new ArrayList<>();
     }
+
 //region getters/setters
     public String getName() {
         return name;
