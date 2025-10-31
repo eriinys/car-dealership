@@ -1,29 +1,33 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.io.*;
+
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
     Dealership dealership;
+    ContractDataManager contract = new ContractDataManager();
 
     public void display(){
         init(); //loads the dealership
         boolean main = true;
-        while(main) {
+        while(main){
             System.out.println("""
                 \nChoose from following options:
                 A) Add Vehicle
-                B) Remove Vehicle
-                C) List All Vehicle
-                D) Search
+                R) Remove Vehicle
+                L) List All Vehicle
+                S) Search
+                C) Purchase/Lease Vehicle
                 E) Exit
                 """);
             String choice = scanner.nextLine();
             switch (choice.toUpperCase()) {
                 case "A" -> processAddVehicleRequest();
-                case "B" -> processRemoveVehicleRequest();
-                case "C" -> processGetAllVehicleRequest();
-                case "D" -> {
+                case "R" -> processRemoveVehicleRequest();
+                case "L" -> processGetAllVehicleRequest();
+                case "S" -> {
                     System.out.println("""
-                            Please choose from following search option:
+                            Please choose from following search options:
                             1) Search by price range
                             2) Search by make/model
                             3) Search by year range
@@ -33,7 +37,7 @@ public class UserInterface {
                             """);
                     String choice2 = scanner.nextLine();
                     boolean search = true;
-                    while (search) {
+                    while(search){
                         switch (choice2) {
                             case "1" -> processGetByPriceRequest();
                             case "2" -> processGetByMakeModelRequest();
@@ -45,7 +49,22 @@ public class UserInterface {
                         search = false;
                     }
                 }
-
+                case "C" -> {
+                    System.out.println("""
+                            Please choose from following options:
+                            P) Purchase Vehicle
+                            L) Lease Vehicle
+                            """);
+                    String choice3 = scanner.nextLine();
+                    boolean contract = true;
+                    while(contract){
+                        switch (choice3){
+                            case "P" -> processSale();
+                            case "L" -> processLease();
+                        }
+                        contract = false;
+                    }
+                }
                 case "E" -> {
                     System.out.println("Exiting program...");
                     main = false;
@@ -112,7 +131,7 @@ public class UserInterface {
         //int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price
         System.out.println("Enter the following information of the vehicle you want to add:");
 
-        System.out.println("Vin#:");
+        System.out.println("VIN#:");
         int vin = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Year:");
@@ -146,7 +165,7 @@ public class UserInterface {
     }
 
     public void processRemoveVehicleRequest(){
-        System.out.println("Enter the vin# of vehicle you would like to remove:");
+        System.out.println("Enter the VIN# of vehicle you would like to remove:");
         int vin = Integer.parseInt(scanner.nextLine());
 
         ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
@@ -162,6 +181,79 @@ public class UserInterface {
         }
         if (!found){
             System.out.println("No vehicle match found to remove from the list.\n");
+        }
+    }
+
+    public void processSale(){
+        while(true) {
+            System.out.println("Enter the VIN# of vehicle you'd like to purchase:");
+            int vehicleVIN = Integer.parseInt(scanner.nextLine());
+
+            Vehicle vehicle = dealership.getVehiclesByVin(vehicleVIN);
+
+            if (vehicle == null) {
+                System.out.println("No match found. Please try again.");
+                continue; //goes back to first prompt
+            }
+
+            LocalDate today = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+            System.out.println("Please enter your full name:");
+            String name = scanner.nextLine();
+            System.out.println("Please enter your email address:");
+            String email = scanner.nextLine();
+            System.out.println("Would you like to have your purchase financed today?");
+            String financeOption = scanner.nextLine();
+
+            boolean isFinanced = false;
+            if (financeOption.equalsIgnoreCase("yes")) {
+                isFinanced = true;
+            } else if
+            (financeOption.equalsIgnoreCase("no")) {
+                isFinanced = false;
+            } else {
+                System.out.println("Please answer either yes or no");
+                continue;
+            }
+
+            SalesContract sales = new SalesContract(today.format(formatter), name, email, vehicle, isFinanced);
+
+            contract.saveContract(sales);
+            System.out.println("Sales contract successfully created!");
+            break;
+        }
+    }
+
+    public void processLease(){
+        while(true) {
+            System.out.println("Enter the VIN# of vehicle you'd like to lease:");
+            int vehicleVIN = Integer.parseInt(scanner.nextLine());
+
+            Vehicle vehicle = dealership.getVehiclesByVin(vehicleVIN);
+
+            if (vehicle == null) {
+                System.out.println("No match found. Please try again.");
+                continue; //goes back to first prompt
+            }
+
+            LocalDate today = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+            if (today.getYear() - vehicle.getYear() > 3) {
+                System.out.println("Vehicles over 3 years old cannot be leased.");
+                continue;
+            }
+
+            System.out.println("Please enter your full name:");
+            String name = scanner.nextLine();
+            System.out.println("Please enter your email address:");
+            String email = scanner.nextLine();
+            LeaseContract lease = new LeaseContract(today.format(formatter), name, email, vehicle);
+
+            contract.saveContract(lease);
+            System.out.println("Lease contract successfully created!");
+            break;
         }
     }
 
