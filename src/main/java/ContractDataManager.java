@@ -12,7 +12,7 @@ public class ContractDataManager {
             if (contract instanceof SalesContract){
                 bw.write("SALE|");
                 bw.write(contract.toString());
-                bw.write((int) sales.getSalesTaxAmt() + "|" + sales.getRecordingFee() + "|" + sales.getProcessingFee() + "|" + sales.getTotalPrice() + "|" + sales.isIsfinanced() +"|" + sales.getMonthlyPay());
+                bw.write((int) sales.getSalesTaxAmt() + "|" + sales.getRecordingFee() + "|" + sales.getProcessingFee() + "|" + sales.getTotalPrice() + "|" + sales.isFinanced() +"|" + sales.getMonthlyPay());
                 bw.newLine();
             }
             if (contract instanceof LeaseContract) {

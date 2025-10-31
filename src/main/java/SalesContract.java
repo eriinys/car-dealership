@@ -2,13 +2,13 @@ public class SalesContract extends Contract {
     private final double salesTaxAmt;
     private final double recordingFee;
     private double processingFee;
-    private boolean isfinanced;
+    private boolean financed;
 
-    public SalesContract(String date, String customerName, String email, Vehicle vehicleSold, boolean isfinanced) {
-        super(date, customerName, email, vehicleSold);
+    public SalesContract(String date, String customerName, String email, Vehicle vehicle, boolean financed) {
+        super(date, customerName, email, vehicle);
         this.salesTaxAmt = 0.05;
         this.recordingFee = 100;
-        this.isfinanced = isfinanced;
+        this.financed = financed;
     }
 
     public double getSalesTaxAmt() {
@@ -19,12 +19,12 @@ public class SalesContract extends Contract {
         return recordingFee;
     }
 
-    public boolean isIsfinanced() {
-        return isfinanced;
+    public boolean isFinanced() {
+        return financed;
     }
 
     public double getProcessingFee(){
-        double vehiclePrice = vehicleSold.getPrice();
+        double vehiclePrice = vehicle.getPrice();
         if (vehiclePrice < 10000) {
             processingFee = 295;
         } else {
@@ -35,7 +35,7 @@ public class SalesContract extends Contract {
 
     @Override
     public double getTotalPrice() {
-        double vehiclePrice = vehicleSold.getPrice();
+        double vehiclePrice = vehicle.getPrice();
         totalPrice = (vehiclePrice * salesTaxAmt) + vehiclePrice + recordingFee + processingFee;
         return totalPrice;
     }
@@ -44,9 +44,9 @@ public class SalesContract extends Contract {
     public double getMonthlyPay() {
         double loanAnnual;
         double monthlyRate;
-        double vehiclePrice = vehicleSold.getPrice();
+        double vehiclePrice = vehicle.getPrice();
         double p = vehiclePrice + processingFee + recordingFee + (vehiclePrice * salesTaxAmt);
-        if (isfinanced) {
+        if (financed) {
             if (vehiclePrice >= 10000) {
                 loanAnnual = 0.0425;
                 monthlyRate = loanAnnual / 12;

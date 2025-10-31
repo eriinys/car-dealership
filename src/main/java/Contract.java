@@ -5,18 +5,18 @@ public abstract class Contract {
     protected String date;
     protected String customerName;
     protected String email;
-    protected Vehicle vehicleSold;
+    protected Vehicle vehicle;
     protected double totalPrice;
     protected double monthlyPay;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     LocalDate today = LocalDate.now();
 
-    public Contract(String date, String customerName, String email, Vehicle vehicleSold) {
+    public Contract(String date, String customerName, String email, Vehicle vehicle) {
         this.date = today.format(formatter);
         this.customerName = customerName;
         this.email = email;
-        this.vehicleSold = vehicleSold;
+        this.vehicle = vehicle;
     }
 
     //region getters/setters
@@ -41,11 +41,11 @@ public abstract class Contract {
         this.email = email;
     }
 
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
-    public void setVehicleSold(Vehicle vehicleSold) {
-        this.vehicleSold = vehicleSold;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
     //endregion
 
@@ -54,7 +54,7 @@ public abstract class Contract {
     public abstract double getMonthlyPay();
 
     public String toString(){
-        return String.format("%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|", date, customerName, email, vehicleSold.getVin(), vehicleSold.getYear(), vehicleSold.getMake(), vehicleSold.getModel(), vehicleSold.getVehicleType(),vehicleSold.getColor(),vehicleSold.getOdometer(),vehicleSold.getPrice());
+        return String.format("%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|", date, customerName, email, vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
 
         //DATE|CUSTOMER_NAME|CUSTOMER_EMAIL|VIN|Y
         //EAR|MAKE|MODEL|VEHICLE_TYPE|COLOR|ODOMETER|VEHICLE_PRI

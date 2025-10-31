@@ -33,7 +33,7 @@ public class DealershipFileManager {
                double price = Double.parseDouble(parts[7]);
 
                Vehicle vehicle = new Vehicle(vin, year, make,model,vehicleType, color, odometer, price);
-               dealership.inventory.add(vehicle); //adds object to collection aka ArrayList of Vehicles in Dealership
+               dealership.addVehicle(vehicle); //adds object to collection aka ArrayList of Vehicles in Dealership
            }
 
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class DealershipFileManager {
                 bw.write("D & B Used Cars|111 Old Benbrook Rd|817-555-555");
                 bw.newLine();
 
-                for (Vehicle vehicle : dealership.inventory){
+                for (Vehicle vehicle : dealership.getAllVehicles()){
                     bw.write(vehicle.toString());
                     bw.newLine();
                 }

@@ -26,7 +26,7 @@ public class LeaseContract extends Contract{
     public double getMonthlyPay() {
         double loanAnnual = 0.04;
         double monthlyRate = loanAnnual / 12;
-        monthlyPay = ((vehicleSold.getPrice() - expectedEndingValue ) + leaseFee) / 36;
+        monthlyPay = ((vehicle.getPrice() - expectedEndingValue ) + leaseFee) / 36;
         return monthlyPay;
     }
 }

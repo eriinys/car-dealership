@@ -4,7 +4,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-    ArrayList<Vehicle> inventory;
+    private ArrayList<Vehicle> inventory;
 
     public Dealership(String name, String address, String phone) {
         this.name = name;
@@ -108,6 +108,15 @@ public class Dealership {
             }
         }
         return filtered;
+    }
+
+    public Vehicle getVehiclesByVin(int vin){
+        for (Vehicle vehicle : inventory) {
+            if (vehicle.getVin() == vin) {
+                return vehicle;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Vehicle> getAllVehicles(){
