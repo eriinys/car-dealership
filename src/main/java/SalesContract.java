@@ -11,14 +11,31 @@ public class SalesContract extends Contract {
         this.isfinanced = isfinanced;
     }
 
-    @Override
-    public double getTotalPrice() {
+    public double getSalesTaxAmt() {
+        return salesTaxAmt;
+    }
+
+    public double getRecordingFee() {
+        return recordingFee;
+    }
+
+    public boolean isIsfinanced() {
+        return isfinanced;
+    }
+
+    public double getProcessingFee(){
         double vehiclePrice = vehicleSold.getPrice();
         if (vehiclePrice < 10000) {
             processingFee = 295;
         } else {
             processingFee = 495;
         }
+        return  processingFee;
+    }
+
+    @Override
+    public double getTotalPrice() {
+        double vehiclePrice = vehicleSold.getPrice();
         totalPrice = (vehiclePrice * salesTaxAmt) + vehiclePrice + recordingFee + processingFee;
         return totalPrice;
     }
