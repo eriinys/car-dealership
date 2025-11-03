@@ -221,7 +221,15 @@ public class UserInterface {
 
             contract.saveContract(sales);
             System.out.println("Sales contract successfully created!");
-            dealership.removeVehicle(vehicle);
+
+//            if (dealership.getVehiclesByVin(vehicleVIN).equals(vehicle)){
+//                dealership.removeVehicle(vehicle);
+//            }
+            dealership.removeVehicle(vehicle); //only removes the object from the arraylist not the text file
+
+            DealershipFileManager fileManager = new DealershipFileManager();
+            fileManager.saveDealership(dealership);
+            //make sure to call the saveDealership method from DealershipFileManager to overwrite/save the updated arraylist into text file
             break;
         }
     }
@@ -271,4 +279,5 @@ public class UserInterface {
             System.out.println(vehicle);
         }
     }
+
 }
